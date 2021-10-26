@@ -36,6 +36,14 @@ pipeline {
             archiveArtifacts artifacts: '**/target/*.jar', fingerprint: true
             echo 'Pipeline for worker is complete..'
         }
+        failure {
+            slackSend (channel: "instovate-cd", message: "Buil Failed" "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+        }
+        success {
+            slackSend (channel: "instovate-cd", message: "Buil Succeeded" "Build Started - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)")
+        }
+        
+
     }
         
 }
